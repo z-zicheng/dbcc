@@ -63,7 +63,7 @@ static const char *dbc_grammar =
 " range                : '[' ( <float> | <integer> ) '|' ( <float> | <integer> ) ']' ;\n"
 " node                 : <ident> ; \n"
 " nodes                : <node> <s>* ( ',' <s>* <node>)* ; \n"
-" string               : '\"' /((\\\\\")|[^\"])*/ '\"' \n; "
+" string               : '\"' /[^\"]*/ '\"' \n; "
 " unit                 : <string> ; \n"
 " startbit             : <integer> ; \n"
 " endianess            : '0' | '1' ; \n" /* for the endianess; 0 = Motorola, 1 = Intel */
@@ -106,7 +106,7 @@ static const char *dbc_grammar =
 "                        |    <comment_string> "
 "                        ) <s>* ';' <n> ;\n "
 " comments              : <comment>* ; "
-" dbc       : <version> <symbols> <bs> <ecus> <values>* <n>* <messages> <comments> <sigval>* <attribute_definition>* <attribute_value>* <vals>  ; \n" ;
+" dbc       : <version> <symbols> <bs> <ecus> <values>* <n>* <messages> (<n>|<sigval>|<types>)*  ; \n" ;
 
 const char *parse_get_grammar(void)
 {

@@ -9,10 +9,10 @@
 #include "can.h"
 #include "parse.h"
 #include "2c.h"
-#include "2xml.h"
-#include "2csv.h"
-#include "2bsm.h"
-#include "2json.h"
+// #include "2xml.h"
+// #include "2csv.h"
+// #include "2bsm.h"
+// #include "2json.h"
 #include "options.h"
 
 typedef enum {
@@ -69,7 +69,7 @@ static char *replace_file_type(const char *file, const char *suffix)
 	assert(suffix);
 	char *name = duplicate(file);
 	char *dot = strrchr(name, '.');
-	if (*dot)
+	if(*dot)
 		*dot = '\0';
 	size_t name_size = strlen(name) + strlen(suffix) + 2;
 	name = reallocator(name, name_size); /* + 1 for '.', + 1 for '\0' */
@@ -97,53 +97,53 @@ static int dbc2cWrapper(dbc_t *dbc, const char *dbc_file, const char *file_only,
 	return r;
 }
 
-static int dbc2xmlWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
-{
-	assert(dbc);
-	assert(dbc_file);
-	char *name = replace_file_type(dbc_file, "xml");
-	FILE *o = fopen_or_die(name, "wb");
-	const int r = dbc2xml(dbc, o, use_time_stamps);
-	fclose(o);
-	free(name);
-	return r;
-}
+// static int dbc2xmlWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
+// {
+// 	assert(dbc);
+// 	assert(dbc_file);
+// 	char *name = replace_file_type(dbc_file, "xml");
+// 	FILE *o = fopen_or_die(name, "wb");
+// 	const int r = dbc2xml(dbc, o, use_time_stamps);
+// 	fclose(o);
+// 	free(name);
+// 	return r;
+// }
 
-static int dbc2csvWrapper(dbc_t *dbc, const char *dbc_file)
-{
-	assert(dbc);
-	assert(dbc_file);
-	char *name = replace_file_type(dbc_file, "csv");
-	FILE *o = fopen_or_die(name, "wb");
-	const int r = dbc2csv(dbc, o);
-	fclose(o);
-	free(name);
-	return r;
-}
+// static int dbc2csvWrapper(dbc_t *dbc, const char *dbc_file)
+// {
+// 	assert(dbc);
+// 	assert(dbc_file);
+// 	char *name = replace_file_type(dbc_file, "csv");
+// 	FILE *o = fopen_or_die(name, "wb");
+// 	const int r = dbc2csv(dbc, o);
+// 	fclose(o);
+// 	free(name);
+// 	return r;
+// }
 
-static int dbc2bsmWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
-{
-	assert(dbc);
-	assert(dbc_file);
-	char *name = replace_file_type(dbc_file, "bsm");
-	FILE *o = fopen_or_die(name, "wb");
-	const int r = dbc2bsm(dbc, o, use_time_stamps);
-	fclose(o);
-	free(name);
-	return r;
-}
+// static int dbc2bsmWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
+// {
+// 	assert(dbc);
+// 	assert(dbc_file);
+// 	char *name = replace_file_type(dbc_file, "bsm");
+// 	FILE *o = fopen_or_die(name, "wb");
+// 	const int r = dbc2bsm(dbc, o, use_time_stamps);
+// 	fclose(o);
+// 	free(name);
+// 	return r;
+// }
 
-static int dbc2jsonWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
-{
-	assert(dbc);
-	assert(dbc_file);
-	char *name = replace_file_type(dbc_file, "json");
-	FILE *o = fopen_or_die(name, "wb");
-	const int r = dbc2json(dbc, o, use_time_stamps);
-	fclose(o);
-	free(name);
-	return r;
-}
+// static int dbc2jsonWrapper(dbc_t *dbc, const char *dbc_file, bool use_time_stamps)
+// {
+// 	assert(dbc);
+// 	assert(dbc_file);
+// 	char *name = replace_file_type(dbc_file, "json");
+// 	FILE *o = fopen_or_die(name, "wb");
+// 	const int r = dbc2json(dbc, o, use_time_stamps);
+// 	fclose(o);
+// 	free(name);
+// 	return r;
+// }
 
 int main(int argc, char **argv)
 {
@@ -161,14 +161,12 @@ int main(int argc, char **argv)
 	};
 	int opt = 0;
 
-	while ((opt = dbcc_getopt(argc, argv, "hVvbjgxCNtDpukso:")) != -1) {
+	// while ((opt = dbcc_getopt(argc, argv, "hvbjgxCNtDpukso:")) != -1) {
+	while ((opt = dbcc_getopt(argc, argv, "hvbjgxCNtDpukso:")) != -1) {
 		switch (opt) {
 		case 'h':
 			usage(argv[0]);
 			help();
-			break;
-		case 'V':
-			fprintf(stderr, "%s\n", DBCC_VERSION);
 			break;
 		case 'v':
 			set_log_level(++log_level);
@@ -176,18 +174,18 @@ int main(int argc, char **argv)
 			break;
 		case 'g':
 			return printf("DBCC Grammar =>\n%s\n", parse_get_grammar()) < 0;
-		case 'b':
-			convert = CONVERT_TO_BSM;
-			break;
-		case 'j':
-			convert = CONVERT_TO_JSON;
-			break;
-		case 'x':
-			convert = CONVERT_TO_XML;
-			break;
-		case 'C':
-			convert = CONVERT_TO_CSV;
-			break;
+		// case 'b':
+		// 	convert = CONVERT_TO_BSM;
+		// 	break;
+		// case 'j':
+		// 	convert = CONVERT_TO_JSON;
+		// 	break;
+		// case 'x':
+		// 	convert = CONVERT_TO_XML;
+		// 	break;
+		// case 'C':
+		// 	convert = CONVERT_TO_CSV;
+		// 	break;
 		case 'N':
 			copts.use_id_in_name = false;
 			break;
@@ -236,17 +234,22 @@ int main(int argc, char **argv)
 	for(int i = dbcc_optind; i < argc; i++) {
 		debug("reading => %s", argv[i]);
 		mpc_ast_t *ast = parse_dbc_file_by_name(argv[i]);
-		if (!ast) {
+
+		// FILE *f_ast = fopen("./dbc_files/test.txt", "w");
+		// mpc_ast_print_to(ast, f_ast);
+		// fclose(f_ast);
+		
+		if(!ast) {
 			warning("could not parse file '%s'", argv[i]);
 			continue;
 		}
-		if (verbose(LOG_DEBUG))
+		if(verbose(LOG_DEBUG))
 			mpc_ast_print(ast);
 
 		dbc_t *dbc = ast2dbc(ast);
 
 		char *outpath = dbcc_basename(argv[i]);
-		if (outdir) {
+		if(outdir) {
 			outpath = allocate(strlen(outpath) + strlen(outdir) + 2 /* '/' + '\0'*/);
 			strcat(outpath, outdir);
 			strcat(outpath, "/");
@@ -258,27 +261,27 @@ int main(int argc, char **argv)
 		case CONVERT_TO_C:
 			r = dbc2cWrapper(dbc, outpath, dbcc_basename(argv[i]), &copts);
 			break;
-		case CONVERT_TO_XML:
-			r = dbc2xmlWrapper(dbc, outpath, copts.use_time_stamps);
-			break;
-		case CONVERT_TO_CSV:
-			if (copts.use_time_stamps)
-				error("Cannot use time stamps when specifying CSV option");
-			r = dbc2csvWrapper(dbc, outpath);
-			break;
-		case CONVERT_TO_BSM:
-			r = dbc2bsmWrapper(dbc, outpath, copts.use_time_stamps);
-			break;
-		case CONVERT_TO_JSON:
-			r = dbc2jsonWrapper(dbc, outpath, copts.use_time_stamps);
-			break;
+		// case CONVERT_TO_XML:
+		// 	r = dbc2xmlWrapper(dbc, outpath, copts.use_time_stamps);
+		// 	break;
+		// case CONVERT_TO_CSV:
+		// 	if(copts.use_time_stamps)
+		// 		error("Cannot use time stamps when specifying CSV option");
+		// 	r = dbc2csvWrapper(dbc, outpath);
+		// 	break;
+		// case CONVERT_TO_BSM:
+		// 	r = dbc2bsmWrapper(dbc, outpath, copts.use_time_stamps);
+		// 	break;
+		// case CONVERT_TO_JSON:
+		// 	r = dbc2jsonWrapper(dbc, outpath, copts.use_time_stamps);
+		// 	break;
 		default:
 			error("invalid conversion type: %d", convert);
 		}
-		if (r < 0)
+		if(r < 0)
 			warning("conversion process failed: %u/%u", r, convert);
 
-		if (outdir)
+		if(outdir)
 			free(outpath);
 		dbc_delete(dbc);
 		mpc_ast_delete(ast);
