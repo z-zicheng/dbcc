@@ -1,6 +1,6 @@
 # Project Description
 It is easy to find open source to help us on CAN dbc files to c code convertions. But unfortunately, few of tools can be found to convert CANFD dbc files to c code. This is a tools to solve that problem.
-The tool is to convert CAN and CANFD dbc files to c files which can be used to reduce the coding work on CAN or CANFD signals processing. It is only modifed on the part of c code generation comparing with original project. And all other function(csv convertiion /xml conversion/...) are removed here. You can see more details from the original site:https://github.com/howerj/dbcc
+The tool is to convert CAN and CANFD dbc files to c files which can be used to reduce the coding work on CAN or CANFD signals processing. It is only modifed on the part of c code generation comparing with original project. And all other function(csv convertiion /xml conversion/...) are removed here. You can see more details from the original site: https://github.com/howerj/dbcc
 &nbsp; 
 
 # How to Run
